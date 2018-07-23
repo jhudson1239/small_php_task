@@ -3,29 +3,28 @@
 ?>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
+    <title>Small Task</title>
+
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    
+    <script src="main.js" defer></script>
 </head>
+
 <body>
 
     <h1>Current car list:</h1>
 
     <?php
-        $sql = "SELECT * FROM cars";
-        $results = mysqli_query($conn, $sql);
-        $validate = mysqli_num_rows($results);
-
-        if($validate>0){
-            while($row = mysqli_fetch_assoc($results)){
-                echo $row['name'];
-                echo '</br>';
-
-            }
+        $query = "SELECT * FROM cars";
+        $data = $conn->query($query);
+        
+        foreach($data as $row){
+            echo $row['name'] . '</br>';
         }
     ?>
 
@@ -35,10 +34,10 @@
         <label for="car_select">Which car do you want to change?</label>
         <select name="car_select" id="car_select">     
             <?php
-                $results = mysqli_query($conn, $sql);
-                $validate = mysqli_num_rows($results);
+                $query = "SELECT * FROM cars";
+                $data = $conn->query($query);
 
-                while($row = mysqli_fetch_assoc($results)){
+                foreach($data as $row){
                     echo "<option value=" . $row['id'] .">" . $row['name'] . "</option>";
                     echo '</br>';
                 }
@@ -52,4 +51,5 @@
     </form>
     
 </body>
+
 </html>

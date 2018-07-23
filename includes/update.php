@@ -1,15 +1,28 @@
 <?php
     include_once 'dbc.php';
 
-    $car_id = mysqli_real_escape_string($conn, $_POST['car_select']);
-    $car_name = mysqli_real_escape_string($conn, $_POST['car_input']);
+    $query = "UPDATE cars SET name = :name WHERE id = :id";
 
-    echo $car_id;
-    echo $car_name;
+    echo "started";
 
-    $sql = "UPDATE cars SET name = '$car_name' WHERE id = '$car_id'";
+    //prepre statment
+    $stmt = $conn->prepare($query);
+    echo "stmt prepared";
 
-    $results = mysqli_query($conn, $sql);
+    //clean data
+    $id = htmlspecialchars(strip_tags($_POST['car_select']));
+    $name = htmlspecialchars(strip_tags($_POST['car_input']));
+    echo "data cleaned";
+
+    //bind data
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':name', $name);
+
+    if ($stmt->execute()){
+        echo "completed";
+    } else {
+        echo "not comeplted";
+    }
 
     header("Location: ../index.php?update=success");
 ?>

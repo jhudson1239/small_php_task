@@ -5,4 +5,11 @@
     $dbPassword = "";
     $dbName = 'small_task';
 
-    $conn = mysqli_connect($dbServername, $dbUsername, $dbPassword,$dbName);
+    try {
+        $conn = new PDO("mysql:host=" . $dbServername . ";dbname=" . $dbName, $dbUsername, $dbPassword);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        echo "Connected";
+    } catch(PDOException $e){
+        echo "Connection failed";
+    }
+?>
