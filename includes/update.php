@@ -1,5 +1,5 @@
 <?php
-    include_once 'dbc.php';
+    require_once 'dbc.php';
 
     $query = "UPDATE cars SET name = :name WHERE id = :id";
 

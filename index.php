@@ -1,5 +1,5 @@
 <?php
-    include_once('includes/dbc.php');
+    require_once('includes/dbc.php');
 ?>
 <!DOCTYPE html>
 <html>
